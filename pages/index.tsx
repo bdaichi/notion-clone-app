@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import ExpressService from '../service/express_service'
+import MysqlService from '../service/mysql_service'
 
 const Home: NextPage = () => {
+    MysqlService()
 
   return (
     <>aa</>

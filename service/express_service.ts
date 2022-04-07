@@ -1,3 +1,5 @@
+import fs from 'fs'
+
 export default function ExpressService() {
 const express = require('express')
   const app = express()
