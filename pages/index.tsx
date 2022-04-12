@@ -1,20 +1,22 @@
 import type { NextPage } from 'next'
-import { useState,useEffect } from 'react'
+import { Button, TextField } from '@material-ui/core';
+import { useEffect, useState } from 'react';
+import fetchUser from '../service/user_service';
+import axios from 'axios';
 
 const Home: NextPage = () => {
-  const [message, setMessage] = useState('');
+  const [data, setData] = useState('')
 
-  useEffect(() =>{
-    fetch('http://localhost:3001/api')
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  },[])
+  useEffect(() => {
+    fetchUser(setData)
+  }, [])
   
   return (
-    <div className="App">
-      <h1>フロントエンド</h1>
-      <p>{message}</p>
-    </div>
+    <>
+      <div className="App">
+        {data}
+      </div>
+    </>
   );
 }
 
