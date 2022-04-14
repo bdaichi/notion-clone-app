@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 class Page {
     
     public readonly pageId: string;
@@ -23,6 +25,17 @@ class Page {
            pageName,
            text,
         );
+    }
+
+    public static createPage(
+        pageName: string,
+        text: string
+    ) {
+        return new Page(
+            uuidv4(),
+            pageName,
+            text
+        )
     }
 
 }
