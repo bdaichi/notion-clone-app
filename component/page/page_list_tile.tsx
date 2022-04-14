@@ -7,6 +7,8 @@ type Props = {
 export default function PageListTile(props: Props) {
 
     return(
-        <></>
+        <>
+           <p className="text-3xl">{props.page.pageName}</p>
+        </>
     )
 }

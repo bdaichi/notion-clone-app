@@ -1,34 +1,23 @@
+import { Drawer } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import Page from "../entity/Page";
-import { fetchPage, fetchPages } from "../service/page_service";
 
+import PageContent from "../component/page/page_contet";
+import PageList from "../component/page/page_list";
 
 export default function Pages() {
-    const [pageData, setPageData] = useState<Page | null>(null)
-
-    const fetchPageData = () => {
-        fetchPage(setPageData)
-    }
-
-    useEffect(() => {
-        // if(pagesData[0]== null){
-        //     fetchPagesData()
-        // }
-        if(pageData === null) {
-            fetchPageData()
-        }
-        console.log('pageData', pageData)
-        // console.log('pagesData', pagesData)
-    },[])
+    const [pageId, setPageId] = useState('')
     
     return(
-        <div>
+        <>
+        <Drawer
+            className=''
+            variant="permanent"
+            anchor="left"   
+        >
+            <PageList setPageId={setPageId}/>
+        </Drawer>
             
-            <div>{pageData ?
-                <p>{pageData.pageId}</p>
-                :
-                <p>nullだお</p>
-            }</div>
-        </div>
+            <PageContent pageId={pageId} />
+        </>
     )
 }
