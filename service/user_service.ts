@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction } from "react";
 import User from "../entity/User";
 import axios from 'axios';
 
-export default async function fetchUser(setData: Dispatch<SetStateAction<string>>) {
-  await axios
+export default function fetchUser(setData: Dispatch<SetStateAction<string>>) {
+  axios
   .get('http://localhost:3001/read_api')
   .then((results) => {
       console.log(results.data.user);
