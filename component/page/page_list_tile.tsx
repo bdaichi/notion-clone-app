@@ -8,7 +8,7 @@ export default function PageListTile(props: Props) {
 
     return(
         <>
-           <p className="text-3xl">{props.page.pageName}</p>
+           <p className="text-2xl my-4 tracking-wide" style={{ color: '#00a6af', fontFamily: '筑紫A丸ゴシック' }}>{props.page.pageName}</p>
         </>
     )
 }
