@@ -1,16 +1,30 @@
 import { useEffect, useState } from "react";
 import Page from "../entity/Page";
-import fetchPages from "../service/page_service";
+import { fetchPage, fetchPages } from "../service/page_service";
+
 
 export default function Pages() {
     const [pagesData, setPagesData] = useState<Page[]>([])
+    const [pageData, setPageData] = useState<Page | null>(null)
+
+    const fetchPagesData = () => {
+        fetchPages(setPagesData)
+    }
+
+    const fetchPageData = () => {
+        fetchPage(setPageData)
+    }
 
     useEffect(() => {
-        if(pagesData[0]== null){
-            fetchPages(setPagesData)
+        // if(pagesData[0]== null){
+        //     fetchPagesData()
+        // }
+        if(pageData === null) {
+            fetchPageData()
         }
-        console.log('pagesData', pagesData)
-    },[pagesData])
+        console.log('pageData', pageData)
+        // console.log('pagesData', pagesData)
+    },[pagesData, ])
     
     return(
         <div>
@@ -19,6 +33,11 @@ export default function Pages() {
                     <p>{pageData.text}</p>
                 </div>
             )}
+            <div>{pageData ?
+                <p>{pageData.pageId}</p>
+                :
+                <p>nullだお</p>
+            }</div>
         </div>
     )
 }
