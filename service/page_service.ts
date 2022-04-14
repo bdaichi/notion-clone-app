@@ -2,6 +2,11 @@ import { Dispatch, SetStateAction } from "react";
 import axios from 'axios';
 import Page from "../entity/Page";
 
+export async function createPage(page: Page) {
+    //pageのデータをサーバーにPOSTする
+    console.log('createPage page', page)
+}
+
 export async function fetchPages(setPages: Dispatch<SetStateAction<Page[]>>) {
     await axios
     .get('http://localhost:3001/read_pages')
