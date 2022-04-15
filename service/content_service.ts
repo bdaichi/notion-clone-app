@@ -2,6 +2,11 @@ import axios from 'axios';
 import { Dispatch, SetStateAction } from "react";
 import Content from '../entity/Content';
 
+export async function createContent(content: Content) {
+    //pageのデータをサーバーにPOSTする
+    console.log('createPage page', content)
+}
+
 export async function fetchContents(setContent: Dispatch<SetStateAction<Content[]>>, contentId: string) {
     await axios
     .get('http://localhost:3001/read_contents')
@@ -14,4 +19,9 @@ export async function fetchContents(setContent: Dispatch<SetStateAction<Content[
         console.log('read_contentsのやろうが通信失敗');
         console.log(error.status);
     });
+}
+
+export async function updateContent(contentId: string) {
+    console.log('updateContent contentId', contentId)
+    //contentIdを渡してアップデート処理
 }
