@@ -4,7 +4,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect, useState } from "react";
 
-import PageContent from "../component/page/page_contets";
+import PageContent from "../component/page/page_contents";
 import PageList from "../component/page/page_list";
 import Page from "../entity/Page";
 import { createPage } from "../service/page_service";
