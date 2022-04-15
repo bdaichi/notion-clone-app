@@ -30,7 +30,7 @@ export default function PageContent(props: Props) {
                 <div>
                 {contents.map((content) =>
                 <div key={content.contentId}>
-                    <p className='mx-12 text-2xl'>{content.text}</p>
+                    <p className='text-3xl mb-8'>{content.text}</p>
                 </div>
                 )}
                 </div> :
