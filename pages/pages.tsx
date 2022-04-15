@@ -5,9 +5,10 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect, useState } from "react";
 
 import PageContent from "../component/page/page_contents";
-import PageList from "../component/page/page_list";
+import OriginallyPageList from "../component/page/originally_page_list";
 import Page from "../entity/Page";
 import { createPage } from "../service/page_service";
+import UserPageList from "../component/page/user_page_list";
 
 export default function Pages() {
     const [pageId, setPageId] = useState('')
@@ -76,7 +77,8 @@ export default function Pages() {
                             </div>
                         </div>
                     }</div>
-                        <PageList setPageId={setPageId}/>
+                        <OriginallyPageList setPageId={setPageId}/>
+                        <UserPageList setPageId={setPageId} />
                     </div>
                 </List>
             </div>
@@ -104,7 +106,7 @@ export default function Pages() {
         <div className='z-10' style={{ minHeight: '900px', height: '100%', backgroundColor: '#e1f5fe' }}>
                 <List>
                     <div className='flex justify-center items-center my-12 mx-12 flex-col'>
-                        <PageList setPageId={setPageId}/>
+                        <OriginallyPageList setPageId={setPageId}/>
                     </div>
                 </List>
         </div>
