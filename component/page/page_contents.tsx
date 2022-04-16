@@ -1,5 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import Content from "../../entity/Content";
 import { createContent, fetchContents, updateContent } from "../../service/content_service";
@@ -11,14 +11,15 @@ type Props = {
 export default function PageContent(props: Props) {
     const [contents, setContents] = useState<Content[]>([])
     const [contentId, setContentId] = useState('')
+    const [currentPageId, setCurrentPageId] = useState('')
     const [text, setText] = useState('')
+    const [isReloadContentData, setIsReloadContentData] = useState(false)
     const [isTextField, setIsTextField] = useState(false)
 
     const addContent = async () => {
-        //TextField以外を押したらこいつが動くようにする
         //if(text == '')ならそのcontentは削除するようにする
-        console.log('addContent')
-        const contentData = Content.createContent(props.pageId, text)
+        console.log('addContent currentPageId', currentPageId)
+        const contentData = Content.createContent(currentPageId, text)
         await createContent(contentData)
         await fetchContentsData()
     }
@@ -34,28 +35,55 @@ export default function PageContent(props: Props) {
         await fetchContents(setContents, props.pageId)
     }
 
+    const reloadContentData = () => {
+        //TextField状態が解除されてデータの追加or更新される
+        setIsReloadContentData(true)
+        console.log('リロードしたよ')
+    }
+
     const updateContentText = async () => {
         await updateContent(contentId)
         await fetchContentsData()
     }    
 
     useEffect(() => {
+        
         if(props.pageId){
-            console.log('pageId', props.pageId)
+            console.log('pageId', currentPageId)
+            if(currentPageId == ''){
+                setCurrentPageId(props.pageId)
+            } else if(props.pageId != currentPageId) {
+                addContent();
+                updateContentText();
+                setCurrentPageId(props.pageId)
+            }
             fetchContentsData()
+        } 
+        if(isReloadContentData && props.pageId) {
+            addContent();
+            updateContentText();
         }
-    },[props.pageId])
+        setIsReloadContentData(false)
+    },[props.pageId, isReloadContentData])
 
     return(
-        <>{!(props.pageId == '') ?
-            <div>
-            <div className='flex felx-col'>
+        <div>
+            {/*　↓↓↓ TextField外を押したらデータを追加or更新します */}
+            <Button onClick={reloadContentData}>
+            <div className='flex absolute z-10 left-0 top-0'  style={{ width: '900%', height: '6600%' }}>
+            </div>
+            </Button>
+            {/* ↑↑↑ */}
+            {!(props.pageId == '') ?
+            <div className="py-56 px-32">
+            <div className='flex flex-row'>
                 {!(contents[0] == null) ?
-                <div>{contents.map((content) =>
+                <div className='flex flex-col  z-20'>{contents.map((content) =>
                     <div key={content.contentId}>{(isTextField && content.contentId == contentId) ?
-                        <div>
+                        <div className='my-2 z-20'>
                             <TextField
                                 variant='standard'
+                                inputProps={{style: {fontSize: '200%', margin: 8}}}
                                 defaultValue={content.text}
                                 onKeyDown={e => {
                                     if(e.key === 'Enter') {
@@ -66,17 +94,23 @@ export default function PageContent(props: Props) {
                             />
                         </div>
                         :
-                        <Button onClick={() => chageTextField(content.contentId)}>
-                            <p className='text-3xl mb-8'>{content.text}</p>
-                        </Button>
+                        <div className='flex justify-start z-20'>
+                            <Button 
+                                style={{ margin: 8 }}
+                                onClick={() => chageTextField(content.contentId)}
+                            >
+                                <p className='text-3xl'>{content.text}</p>
+                            </Button>
+                        </div>
                     }</div>
                 )}
                 </div>
                  :
-                <p>なにか書いてみよう</p>
+                <p className='my-64'>なにか書いてみよう</p>
             }</div>
             <TextField 
                 variant='standard'
+                inputProps={{style: {fontSize: '200%', margin: 8}}}
                 onKeyDown={e => {
                     if(e.key === 'Enter') {
                         addContent()
@@ -86,8 +120,9 @@ export default function PageContent(props: Props) {
             />
             </div>
             :
-            <p>ページを選ぼう</p>
-        }</>
+            <p className='my-64'>ページを選ぼう</p>
+        }
+    </div>
     )
 
 }
