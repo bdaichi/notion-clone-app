@@ -11,6 +11,7 @@ type Props = {
 export default function PageContent(props: Props) {
     const [contents, setContents] = useState<Content[]>([])
     const [contentId, setContentId] = useState('')
+    //↓↓↓　pageを変更したさいにprops.pageIdも変更するのでデータ更新用のpageIdを保存しておいて更新処理がおわったらprops.pageIdをせっとする
     const [currentPageId, setCurrentPageId] = useState('')
     const [text, setText] = useState('')
     const [isReloadContentData, setIsReloadContentData] = useState(false)
@@ -70,15 +71,15 @@ export default function PageContent(props: Props) {
         <div>
             {/*　↓↓↓ TextField外を押したらデータを追加or更新します */}
             <Button onClick={reloadContentData}>
-            <div className='flex absolute z-10 left-0 top-0'  style={{ width: '900%', height: '6600%' }}>
-            </div>
+                <div className='flex absolute z-10 left-0 top-0'  style={{ width: '900%', height: '6600%' }}>
+                </div>
             </Button>
             {/* ↑↑↑ */}
             {!(props.pageId == '') ?
             <div className="py-56 px-32">
             <div className='flex flex-row'>
                 {!(contents[0] == null) ?
-                <div className='flex flex-col  z-20'>{contents.map((content) =>
+                <div className='flex flex-col z-20'>{contents.map((content) =>
                     <div key={content.contentId}>{(isTextField && content.contentId == contentId) ?
                         <div className='my-2 z-20'>
                             <TextField
@@ -108,16 +109,18 @@ export default function PageContent(props: Props) {
                  :
                 <p className='my-64'>なにか書いてみよう</p>
             }</div>
-            <TextField 
-                variant='standard'
-                inputProps={{style: {fontSize: '200%', margin: 8}}}
-                onKeyDown={e => {
-                    if(e.key === 'Enter') {
-                        addContent()
-                    }
-                }}
-                onChange={(e) => setText(e.target.value)}
-            />
+            <div className='z-40'>
+                <TextField 
+                    variant='standard'
+                    inputProps={{style: {fontSize: '200%', margin: 8}}}
+                    onKeyDown={e => {
+                        if(e.key === 'Enter') {
+                            addContent()
+                        }
+                    }}
+                    onChange={(e) => setText(e.target.value)}
+                />
+            </div>
             </div>
             :
             <p className='my-64'>ページを選ぼう</p>
