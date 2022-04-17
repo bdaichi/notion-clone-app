@@ -14,7 +14,6 @@ export default function PageContent(props: Props) {
     //↓↓↓　pageを変更したさいにprops.pageIdも変更するのでデータ更新用のpageIdを保存しておいて更新処理がおわったらprops.pageIdをせっとする
     const [currentPageId, setCurrentPageId] = useState('')
     const [text, setText] = useState('')
-    const [isReloadContentData, setIsReloadContentData] = useState(false)
     const [isTextField, setIsTextField] = useState(false)
 
     const addContent = async () => {
@@ -35,13 +34,7 @@ export default function PageContent(props: Props) {
         //クライアンからサーバサイドにデータを送ることができたら引数にpageIdを渡すようにする
         await fetchContents(setContents, props.pageId)
     }
-
-    const reloadContentData = () => {
-        //TextField状態が解除されてデータの追加or更新される
-        setIsReloadContentData(true)
-        console.log('リロードしたよ')
-    }
-
+    
     const updateContentText = async () => {
         await updateContent(contentId)
         await fetchContentsData()
@@ -60,21 +53,10 @@ export default function PageContent(props: Props) {
             }
             fetchContentsData()
         } 
-        if(isReloadContentData && props.pageId) {
-            addContent();
-            updateContentText();
-        }
-        setIsReloadContentData(false)
-    },[props.pageId, isReloadContentData])
+    },[props.pageId])
 
     return(
         <div>
-            {/*　↓↓↓ TextField外を押したらデータを追加or更新します */}
-            <Button onClick={reloadContentData}>
-                <div className='flex absolute z-10 left-0 top-0'  style={{ width: '900%', height: '6600%' }}>
-                </div>
-            </Button>
-            {/* ↑↑↑ */}
             {!(props.pageId == '') ?
             <div className="py-56 px-32">
             <div className='flex flex-row'>
