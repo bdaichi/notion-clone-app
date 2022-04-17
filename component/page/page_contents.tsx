@@ -1,5 +1,6 @@
 import { Button, TextField } from "@material-ui/core";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { isFunction } from "util";
 
 import Content from "../../entity/Content";
 import { createContent, fetchContents, updateContent } from "../../service/content_service";
@@ -15,13 +16,26 @@ export default function PageContent(props: Props) {
     const [currentPageId, setCurrentPageId] = useState('')
     const [text, setText] = useState('')
     const [isTextField, setIsTextField] = useState(false)
-
+    //↓↓↓　文字変換を確定した後の2回目のEnterKeyを拾うため
+    const [isAddDataEnterKey, setIsAddDataEnterkey] = useState(false)
+ 
     const addContent = async () => {
         //if(text == '')ならそのcontentは削除するようにする
         console.log('addContent currentPageId', currentPageId)
         const contentData = Content.createContent(currentPageId, text)
         await createContent(contentData)
         await fetchContentsData()
+    }
+
+    const pushEnterKey = async () => {
+        if(isAddDataEnterKey) {
+            const contentData = Content.createContent(currentPageId, text)
+            await createContent(contentData)
+            await fetchContentsData()
+            setIsAddDataEnterkey(false)
+        } else {
+            setIsAddDataEnterkey(true)
+        }
     }
 
     const chageTextField = (contentId: string) => {
@@ -34,14 +48,13 @@ export default function PageContent(props: Props) {
         //クライアンからサーバサイドにデータを送ることができたら引数にpageIdを渡すようにする
         await fetchContents(setContents, props.pageId)
     }
-    
+
     const updateContentText = async () => {
         await updateContent(contentId)
         await fetchContentsData()
     }    
 
     useEffect(() => {
-        
         if(props.pageId){
             console.log('pageId', currentPageId)
             if(currentPageId == ''){
@@ -97,7 +110,7 @@ export default function PageContent(props: Props) {
                     inputProps={{style: {fontSize: '200%', margin: 8}}}
                     onKeyDown={e => {
                         if(e.key === 'Enter') {
-                            addContent()
+                            pushEnterKey()
                         }
                     }}
                     onChange={(e) => setText(e.target.value)}
