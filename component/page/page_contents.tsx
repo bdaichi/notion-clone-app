@@ -22,14 +22,14 @@ export default function PageContent(props: Props) {
     const addContent = async () => {
         //if(text == '')ならそのcontentは削除するようにする
         console.log('addContent currentPageId', currentPageId)
-        const contentData = Content.createContent(currentPageId, text)
+        const contentData = Content.createContent(currentPageId, text, '')
         await createContent(contentData)
         await fetchContentsData()
     }
 
     const pushEnterKey = async () => {
         if(isAddDataEnterKey) {
-            const contentData = Content.createContent(currentPageId, text)
+            const contentData = Content.createContent(currentPageId, text, '')
             await createContent(contentData)
             await fetchContentsData()
             setIsAddDataEnterkey(false)
