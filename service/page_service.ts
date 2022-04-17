@@ -7,16 +7,30 @@ export async function createPage(page: Page) {
     console.log('createPage page', page)
 }
 
-export async function fetchPages(setPages: Dispatch<SetStateAction<Page[]>>) {
+export async function fetchOriginallyPages(setPages: Dispatch<SetStateAction<Page[]>>) {
     await axios
-    .get('http://localhost:3001/read_pages')
+    .get('http://localhost:3001/read_originally_pages')
     .then((results) => {
         console.log(results.data.pages);
-        console.log('PagesMap',results.data.pages.map((doc: any) => Page.fromJSON(doc.data)))
+        console.log('originallyPagesMap',results.data.pages.map((doc: any) => Page.fromJSON(doc.data)))
         setPages(results.data.pages.map((doc: any) => Page.fromJSON(doc)))
     })
     .catch((error) => {
-        console.log('read_pagesのやろうが通信失敗');
+        console.log('read_originally_pagesのやろうが通信失敗');
+        console.log(error.status);
+    });
+  }
+
+  export async function fetchUserPages(setPages: Dispatch<SetStateAction<Page[]>>) {
+    await axios
+    .get('http://localhost:3001/read_user_pages')
+    .then((results) => {
+        console.log(results.data.pages);
+        console.log('userPagesMap',results.data.pages.map((doc: any) => Page.fromJSON(doc.data)))
+        setPages(results.data.pages.map((doc: any) => Page.fromJSON(doc)))
+    })
+    .catch((error) => {
+        console.log('read_user_pagesのやろうが通信失敗');
         console.log(error.status);
     });
   }

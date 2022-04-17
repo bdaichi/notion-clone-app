@@ -4,10 +4,11 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useEffect, useState } from "react";
 
-import PageContent from "../component/page/page_contet";
-import PageList from "../component/page/page_list";
+import PageContent from "../component/page/page_contents";
+import OriginallyPageList from "../component/page/originally_page_list";
 import Page from "../entity/Page";
 import { createPage } from "../service/page_service";
+import UserPageList from "../component/page/user_page_list";
 
 export default function Pages() {
     const [pageId, setPageId] = useState('')
@@ -39,9 +40,10 @@ export default function Pages() {
 
     return(
         <>
-        <div className='flex md:flex-row'>
+        
+        <div className='flex md:flex-row' style={{ width: '100%' }}>
             <div className='hidden md:grid' style={{ minHeight: '800px', height: '100%', backgroundColor: '#e1f5fe', width: '60%' }}>
-                <List className='flex flex-col'>
+                <List className='flex flex-col z-20'>
                     <div className='flex justify-center items-center my-12 mx-12 flex-col'>
                     <div className='flex flex-row'>
                         <IconButton onClick={openAddPageField}>
@@ -76,14 +78,15 @@ export default function Pages() {
                             </div>
                         </div>
                     }</div>
-                        <PageList setPageId={setPageId}/>
+                        <OriginallyPageList setPageId={setPageId}/>
+                        <UserPageList setPageId={setPageId} />
                     </div>
                 </List>
             </div>
             <>{!isOpenPageList ?
-            <div className='flex justify-center md:my-64 z-0' style={{ width: '100%', }}>
-                <PageContent pageId={pageId} />
-            </div>
+                <div className='flex justify-center z-10' style={{ width: '100%', height: '100%',}}>
+                        <PageContent pageId={pageId} />
+                </div>
             :
             <div className='hidden' style={{ width: '100%', }}>
                 <PageContent pageId={pageId} />
@@ -104,7 +107,7 @@ export default function Pages() {
         <div className='z-10' style={{ minHeight: '900px', height: '100%', backgroundColor: '#e1f5fe' }}>
                 <List>
                     <div className='flex justify-center items-center my-12 mx-12 flex-col'>
-                        <PageList setPageId={setPageId}/>
+                        <OriginallyPageList setPageId={setPageId}/>
                     </div>
                 </List>
         </div>

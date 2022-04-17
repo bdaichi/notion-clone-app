@@ -4,37 +4,37 @@ class Page {
     
     public readonly pageId: string;
     public readonly pageName: string;
-    public readonly text: string;
+    public readonly userId: string;
 
     constructor(
         pageId: string,
         pageName: string,
-        text: string
+        userId: string,
     ) {
         this.pageId = pageId;
         this.pageName = pageName;
-        this.text = text;
+        this.userId = userId;
     }
 
     public static fromJSON = (json: any) => {
         console.log('josn', json)
-        const { pageId, pageName, text } = Object.assign({}, json);
+        const { pageId, pageName, userId } = Object.assign({}, json);
 
         return new Page(
            pageId,
            pageName,
-           text,
+           userId
         );
     }
 
     public static createPage(
         pageName: string,
-        text: string
+        userId: string
     ) {
         return new Page(
             uuidv4(),
             pageName,
-            text
+            userId
         )
     }
 
