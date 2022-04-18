@@ -4,6 +4,7 @@ import { isFunction } from "util";
 
 import Content from "../../entity/Content";
 import { createContent, fetchContents, updateContent } from "../../service/content_service";
+import TextContent from "../contents/text_content";
 
 type Props = {
     pageId: string
@@ -91,12 +92,16 @@ export default function PageContent(props: Props) {
                         </div>
                         :
                         <div className='flex justify-start z-20'>
-                            <Button 
-                                style={{ margin: 8 }}
-                                onClick={() => chageTextField(content.contentId)}
-                            >
-                                <p className='text-3xl'>{content.text}</p>
-                            </Button>
+                            {
+                            'text' == 'text' &&
+                            <TextContent onClickMethod={chageTextField} content={content}/>
+                            }
+                            {content.contentType == 'checkBox'
+
+                            }
+                            {content.contentType == 'taskContent'
+
+                            }
                         </div>
                     }</div>
                 )}
