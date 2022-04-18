@@ -1,9 +1,9 @@
 import { Button, TextField } from "@material-ui/core";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { isFunction } from "util";
 
 import Content from "../../entity/Content";
-import { createContent, fetchContents, updateContent } from "../../service/content_service";
+import { createContent, fetchContent, fetchContents, updateContent } from "../../service/content_service";
+import CheckBoxContent from "../contents/check_box_content";
 import TextContent from "../contents/text_content";
 
 type Props = {
@@ -12,6 +12,7 @@ type Props = {
 
 export default function PageContent(props: Props) {
     const [contents, setContents] = useState<Content[]>([])
+    const [content, setContent] = useState<Content | null>(null)
     const [contentId, setContentId] = useState('')
     //↓↓↓　pageを変更したさいにprops.pageIdも変更するのでデータ更新用のpageIdを保存しておいて更新処理がおわったらprops.pageIdをせっとする
     const [currentPageId, setCurrentPageId] = useState('')
@@ -45,14 +46,23 @@ export default function PageContent(props: Props) {
         setIsTextField(true)
     }
 
+    const fetchContentData = async () => {
+        await fetchContent(setContent, contentId)
+    }
+
     const fetchContentsData = async () => {
-        //クライアンからサーバサイドにデータを送ることができたら引数にpageIdを渡すようにする
-        await fetchContents(setContents, props.pageId)
+        await fetchContents(setContents)
     }
 
     const updateContentText = async () => {
-        await updateContent(contentId)
-        await fetchContentsData()
+        if(content) {
+
+            const updateContentData = content.copyWith(null, null, text, null, null)
+
+            await updateContent(updateContentData, contentId)
+            await fetchContentsData()
+            setIsTextField(false)
+        }
     }    
 
     useEffect(() => {
@@ -66,8 +76,11 @@ export default function PageContent(props: Props) {
                 setCurrentPageId(props.pageId)
             }
             fetchContentsData()
+            if(contentId) {
+                fetchContentData()
+            }
         } 
-    },[props.pageId])
+    },[props.pageId, contentId])
 
     return(
         <div>
@@ -80,7 +93,7 @@ export default function PageContent(props: Props) {
                         <div className='my-2 z-20'>
                             <TextField
                                 variant='standard'
-                                inputProps={{style: {fontSize: '200%', margin: 8}}}
+                                inputProps={{style: {fontSize: '200%', margin: 8,  }}}
                                 defaultValue={content.text}
                                 onKeyDown={e => {
                                     if(e.key === 'Enter') {
@@ -93,11 +106,11 @@ export default function PageContent(props: Props) {
                         :
                         <div className='flex justify-start z-20'>
                             {
-                            'text' == 'text' &&
+                            content.contentType == 'text' &&
                             <TextContent onClickMethod={chageTextField} content={content}/>
                             }
-                            {content.contentType == 'checkBox'
-
+                            {!(content.contentType == 'checkBox') &&
+                                <CheckBoxContent content={content} onClickMethod={chageTextField}/>
                             }
                             {content.contentType == 'taskContent'
 
