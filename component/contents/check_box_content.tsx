@@ -41,7 +41,7 @@ export default function CheckBoxContent(props: Props) {
                     style={{ margin: 8 }}
                     onClick={() => props.onClickMethod(props.content.contentId)}
                 >
-                    <p className='flex items-center'>{props.content.text}</p>
+                    <p className='flex items-center text-3xl'>{props.content.text}</p>
                 </Button>  
             </div>
             :
@@ -53,7 +53,7 @@ export default function CheckBoxContent(props: Props) {
                     style={{ margin: 8 }}
                     onClick={() => props.onClickMethod(props.content.contentId)}
                 >
-                    <p className='flex items-center'>{props.content.text}</p>
+                    <p className='flex items-center text-3xl' style={{ color: 'gray', textDecorationLine: 'line-through' }}>{props.content.text}</p>
             </Button>  
         </div>
         }</>
