@@ -2,24 +2,33 @@ import { Button, IconButton, List, TextField } from "@material-ui/core";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import PageContent from "../component/page/page_contents";
 import OriginallyPageList from "../component/page/originally_page_list";
 import Page from "../entity/Page";
 import { createPage } from "../service/page_service";
 import UserPageList from "../component/page/user_page_list";
+import { SignInContext } from "../context/SignInContext";
+import { useRouter } from "next/router";
+import { route } from "next/dist/server/router";
 
 export default function Pages() {
+    const { currentUser } = useContext(SignInContext)
+    const router = useRouter()
+
     const [pageId, setPageId] = useState('')
     const [pageName, setPageName] = useState('')
     const [isOpenAddPageField, setIsOpenAddPageField] = useState(false)
     const [isOpenPageList, setIsOpenPageList] = useState(false)
 
     const addPage = async () => {
-        const pageData = Page.createPage(pageName, 'なにか書いてくれ！')
-        await createPage(pageData)
-        closeAddPageField()
+        if(currentUser) {
+            console.log('userId', currentUser.userId)
+            const pageData = Page.createPage(pageName, currentUser.userId)
+            await createPage(pageData)
+            closeAddPageField()
+        }
     }
 
     const openAddPageField = () => {
@@ -37,6 +46,12 @@ export default function Pages() {
     const closePageList = () => {
         setIsOpenPageList(false)
     }
+
+    useEffect(() => {
+        if(!currentUser) {
+            router.push('sign_In')
+        }
+    })
 
     return(
         <>
