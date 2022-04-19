@@ -13,7 +13,7 @@ export default function CreateSubPageField(props: Props) {
     const [pageName, setPageName] = useState('')
 
     const addSubPage = async () => {
-        const subPageData = SubPage.createSubPage(props.hostPageId, pageName, '') 
+        const subPageData = SubPage.createSubPage(props.hostPageId, pageName) 
         await createSubPage(subPageData)
     }
 
