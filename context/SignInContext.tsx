@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import User from '../entity/User';
 import { fetchUser } from "../service/user_service";
+import User from '../entity/User';
 
 type SignInContextProps = {
     currentUser: User | null
@@ -20,8 +20,8 @@ const SignInProvider: FC = ({ children }) => {
     const router = useRouter()
 
     const [currentUser, setCurrentUser] = useState<User | null>(User.initUser);
-    const [userId, setUserId] = useState<string | null>(null)
     const [password, setPassword] = useState<string | null>(null)
+    const [userId, setUserId] = useState<string | null>(null)
 
     async function reloadCurrentUserData() {
         if (currentUser != null && userId && password) {

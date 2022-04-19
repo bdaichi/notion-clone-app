@@ -34,17 +34,3 @@ export async function fetchOriginallyPages(setPages: Dispatch<SetStateAction<Pag
         console.log(error.status);
     });
   }
-
-  export async function fetchPage(setPageData: Dispatch<SetStateAction<Page | null>>){
-    await axios
-    .get('http://localhost:3001/read_page')
-    .then((results) => {
-        console.log('fromJson', Page.fromJSON(results.data.pages));
-        console.log('results', results.data.pages)
-        setPageData(Page.fromJSON(results.data.pages[0]))
-    })
-    .catch((error) => {
-        console.log('read_pagesのやろうが通信失敗');
-        console.log(error.status);
-    });
-  }

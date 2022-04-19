@@ -1,12 +1,13 @@
 import { Button, IconButton, TextField } from "@material-ui/core"
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
+import CreateSubPageField from "../subPage/create_sub_page_field";
+import { fecthSubPages } from "../../service/subPage_service";
+import OpenSubPageListButton from "../subPage/open_sub_page_list";
 import Page from "../../entity/Page"
 import SubPage from "../../entity/SubPage";
-import { fecthSubPages } from "../../service/subPage_service";
-import CreateSubPageField from "../subPage/create_sub_page_field";
-import OpenSubPageListButton from "../subPage/open_sub_page_list";
 import SubPageList from "../subPage/sub_page_list";
 
 type Props = {
@@ -19,23 +20,20 @@ export default function PageListTile(props: Props) {
     const [isOpenSubPageList, setIsOpenSubPageList] = useState(false)
     const [subPages, setSubPages] = useState<SubPage[]>([])
 
-    const fetchSubPageData = async () => {
-        await fecthSubPages(setSubPages, props.page.pageId)
-    }   
-
     const fetchContentData = () => {
         props.setPageId(props.page.pageId)
     }
 
+    const fetchSubPageData = async () => {
+        await fecthSubPages(setSubPages, props.page.pageId)
+    }   
 
     const openConfirmationField = () => {
         setIsConfimation(true)
     }
 
     useEffect(() => {
-        
          fetchSubPageData()
-        
     },[])
 
     return(

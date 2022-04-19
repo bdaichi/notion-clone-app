@@ -22,20 +22,7 @@ class Content {
         this.contentType = contentType;
         this.isCheck = isCheck
     }
-
-    public static fromJSON = (json: any) => {
-        console.log('josn', json)
-        const { contentId, hostPageId, text, contentType, isCheck } = Object.assign({}, json);
-
-        return new Content(
-            contentId,
-            hostPageId,
-            text,
-            contentType,
-            isCheck
-        );
-    }
-
+    
     public static createContent(
         hostPageId:string,
         text: string,
@@ -64,6 +51,19 @@ class Content {
         contentType ?? this.contentType,
         isCheck ?? this.isCheck
         )
+    }
+
+    public static fromJSON = (json: any) => {
+        console.log('josn', json)
+        const { contentId, hostPageId, text, contentType, isCheck } = Object.assign({}, json);
+
+        return new Content(
+            contentId,
+            hostPageId,
+            text,
+            contentType,
+            isCheck
+        );
     }
 
 }

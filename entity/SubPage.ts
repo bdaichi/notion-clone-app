@@ -16,17 +16,6 @@ class SubPage {
         this.pageName = pageName;
     }
 
-    public static fromJSON = (json: any) => {
-        console.log('josn', json)
-        const { hostPageId, pageId, pageName } = Object.assign({}, json);
-
-        return new SubPage(
-            hostPageId,
-            pageId,
-            pageName,
-        );
-    }
-
     public static createSubPage(
         hostPageId: string,
         pageName: string,
@@ -38,6 +27,16 @@ class SubPage {
         )
     }
 
+    public static fromJSON = (json: any) => {
+        console.log('josn', json)
+        const { hostPageId, pageId, pageName } = Object.assign({}, json);
+
+        return new SubPage(
+            hostPageId,
+            pageId,
+            pageName,
+        );
+    }
 }
 
 export default SubPage
