@@ -13,9 +13,9 @@ export async function fecthSubPages(setSubPages: Dispatch<SetStateAction<SubPage
     await axios
     .get('http://localhost:3001/read_subPages')
     .then((results) => {
-        console.log(results.data.pages);
-        console.log('originallyPagesMap',results.data.pages.map((doc: any) => SubPage.fromJSON(doc.data)))
-        setSubPages(results.data.pages.map((doc: any) => SubPage.fromJSON(doc)))
+        console.log(results.data.subPages);
+        console.log('originallyPagesMap',results.data.subPages.map((doc: any) => SubPage.fromJSON(doc.data)))
+        setSubPages(results.data.subPages.map((doc: any) => SubPage.fromJSON(doc)))
     })
     .catch((error) => {
         console.log('read_subPagesのやろうが通信失敗');

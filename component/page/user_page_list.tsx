@@ -16,12 +16,6 @@ export default function UserPageList(props: Props) {
         fetchUserPages(setPagesData)
     }
 
-    const openPageContents = (pageId: string) => {
-        if(pageId){
-            props.setPageId(pageId)
-        }
-    }
-
     useEffect(() => {
         if(pagesData[0] == null){
             fetchPagesData();
@@ -31,9 +25,7 @@ export default function UserPageList(props: Props) {
     return(
         <>{pagesData.map((pageData) => 
             <div key={pageData.pageId}>
-                <Button onClick={() => openPageContents(pageData.pageId)} size='medium'>
-                    <PageListTile page={pageData}/>
-                </Button>
+                    <PageListTile page={pageData} setPageId={props.setPageId} />
             </div>
         )}</>
     )

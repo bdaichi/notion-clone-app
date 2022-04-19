@@ -16,12 +16,6 @@ export default function OriginallyPageList(props: Props) {
         fetchOriginallyPages(setPagesData)
     }
 
-    const openPageContents = (pageId: string) => {
-        if(pageId){
-            props.setPageId(pageId)
-        }
-    }
-
     useEffect(() => {
         if(pagesData[0] == null){
             fetchPagesData();
@@ -31,9 +25,7 @@ export default function OriginallyPageList(props: Props) {
     return(
         <div className='border-b-2 border-gray-300 my-4'>{pagesData.map((pageData) => 
             <div key={pageData.pageId}>
-                <Button onClick={() => openPageContents(pageData.pageId)} size='large'>
-                    <PageListTile page={pageData}/>
-                </Button>
+                    <PageListTile page={pageData} setPageId={props.setPageId}/>
             </div>
         )}</div>
     )

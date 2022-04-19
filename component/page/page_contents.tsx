@@ -51,7 +51,7 @@ export default function PageContent(props: Props) {
     }
 
     const fetchContentsData = async () => {
-        await fetchContents(setContents)
+        await fetchContents(setContents, props.pageId)
     }
 
     const updateContentText = async () => {
@@ -109,7 +109,7 @@ export default function PageContent(props: Props) {
                             content.contentType == 'text' &&
                             <TextContent onClickMethod={chageTextField} content={content}/>
                             }
-                            {!(content.contentType == 'checkBox') &&
+                            {(content.contentType == 'checkBox') &&
                                 <CheckBoxContent content={content} onClickMethod={chageTextField}/>
                             }
                             {content.contentType == 'taskContent'

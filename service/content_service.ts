@@ -23,7 +23,7 @@ export async function fetchContent(setContent: Dispatch<SetStateAction<Content |
     });
 }
 
-export async function fetchContents(setContents: Dispatch<SetStateAction<Content[]>>) {
+export async function fetchContents(setContents: Dispatch<SetStateAction<Content[]>>, pageId: string) {
     await axios
     .get('http://localhost:3001/read_contents')
     .then((results) => {
