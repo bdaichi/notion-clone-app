@@ -1,6 +1,7 @@
 import { Button, IconButton } from "@material-ui/core"
-import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlineBlankOutlined';
+
 import { useEffect, useState } from "react"
 
 import Content from "../../entity/Content"
@@ -53,7 +54,7 @@ export default function CheckBoxContent(props: Props) {
                 >
                         <p className='text-xl' style={{ color: 'gray', textDecorationLine: 'line-through' }}>{props.content.text}</p>
                 </Button>  
-        </div>
+            </div>
         }</>
     )
 }

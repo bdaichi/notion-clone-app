@@ -1,10 +1,11 @@
 import { Button, IconButton, TextField } from "@material-ui/core";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+
 import { useEffect, useState } from "react";
 
-import Content from "../../entity/Content";
-import { createContent, fetchContent, fetchContents, updateContent } from "../../service/content_service";
 import CheckBoxContent from "../contents/check_box_content";
+import { createContent, fetchContent, fetchContents, updateContent } from "../../service/content_service";
+import Content from "../../entity/Content";
 import SelectContentTypeField from "../contents/select_content_type_field";
 import TextContent from "../contents/text_content";
 
@@ -13,8 +14,8 @@ type Props = {
 }
 
 export default function PageContent(props: Props) {
-    const [contents, setContents] = useState<Content[]>([])
     const [content, setContent] = useState<Content | null>(null)
+    const [contents, setContents] = useState<Content[]>([])
     const [contentId, setContentId] = useState('')
     //↓↓↓　pageを変更したさいにprops.pageIdも変更するのでデータ更新用のpageIdを保存しておいて更新処理がおわったらprops.pageIdをせっとする
     const [currentPageId, setCurrentPageId] = useState('')
@@ -46,6 +47,10 @@ export default function PageContent(props: Props) {
         await fetchContents(setContents, props.pageId)
     }
 
+    const openSelectField = () => {
+        setIsSelectField(true)
+    }
+
     const updateContentText = async () => {
         if(isAddDataEnterKey) {
             if(content) {
@@ -60,10 +65,6 @@ export default function PageContent(props: Props) {
         }
     }
     
-    const openSelectField = () => {
-        setIsSelectField(true)
-    }
-
     useEffect(() => {
         if(props.pageId){
             console.log('pageId', currentPageId)
@@ -93,49 +94,49 @@ export default function PageContent(props: Props) {
                     </div>
                 </Button>
                 {/* ↑↑↑ */}
-                {!(props.pageId == '') ?
+            {!(props.pageId == '') ?
                 <div className="py-56">
-                <div className='flex flex-row'>
+                    <div className='flex flex-row'>
                     {!(contents[0] == null) ?
-                    <div className='flex flex-col z-10'>{contents.map((content) =>
-                        <div key={content.contentId}>{(isTextField && content.contentId == contentId) ?
-                            <div className='my-2 mx-8 z-10'>
-                                <TextField
-                                    variant='standard'
-                                    inputProps={{style: {fontSize: '160%' }}}
-                                    defaultValue={content.text}
-                                    label={content.text ? '' : 'なにかかいてみよう'}
-                                    onKeyDown={e => {
-                                        if(e.key === 'Enter') {
-                                            updateContentText()
-                                        }
-                                    }}
-                                    onChange={(e) => setText(e.target.value)}
-                                />
-                            </div>
-                            :
-                            <div className='flex flex-row z-10 m-4'>
-                                <IconButton onClick={openSelectField}>
-                                    <AddOutlinedIcon/>
-                                </IconButton>
-                                <div className='flex flex-col items-cneter'>
-                                    {
-                                    content.contentType == 'text' &&
-                                        <TextContent onClickMethod={chageTextField} content={content}/>
-                                    }
-                                    {(content.contentType == 'checkBox') &&
-                                        <CheckBoxContent content={content} onClickMethod={chageTextField}/>
-                                    }
-                                    {content.contentType == 'taskContent'
-
-                                    }
+                        <div className='flex flex-col z-10'>{contents.map((content) =>
+                            <div key={content.contentId}>{(isTextField && content.contentId == contentId) ?
+                                <div className='my-2 mx-8 z-10'>
+                                    <TextField
+                                        variant='standard'
+                                        inputProps={{style: {fontSize: '160%' }}}
+                                        defaultValue={content.text}
+                                        label={content.text ? '' : 'なにかかいてみよう'}
+                                        onKeyDown={e => {
+                                            if(e.key === 'Enter') {
+                                                updateContentText()
+                                            }
+                                        }}
+                                        onChange={(e) => setText(e.target.value)}
+                                    />
                                 </div>
-                            </div>
-                        }</div>
-                    )}
-                    </div>
-                    :
-                    <p className='my-64 px-32'>なにか書いてみよう</p>
+                                :
+                                <div className='flex flex-row z-10 m-4'>
+                                    <IconButton onClick={openSelectField}>
+                                        <AddOutlinedIcon/>
+                                    </IconButton>
+                                    <div className='flex flex-col items-cneter'>
+                                        {
+                                        content.contentType == 'text' &&
+                                            <TextContent onClickMethod={chageTextField} content={content}/>
+                                        }
+                                        {(content.contentType == 'checkBox') &&
+                                            <CheckBoxContent content={content} onClickMethod={chageTextField}/>
+                                        }
+                                        {content.contentType == 'taskContent'
+
+                                        }
+                                    </div>
+                                </div>
+                            }</div>
+                        )}
+                        </div>
+                        :
+                        <p className='my-64 px-32'>なにか書いてみよう</p>
                     }</div>
                     <div className='flex justify-center'>
                         <TextField 
