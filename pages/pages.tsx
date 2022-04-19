@@ -11,7 +11,6 @@ import { createPage } from "../service/page_service";
 import UserPageList from "../component/page/user_page_list";
 import { SignInContext } from "../context/SignInContext";
 import { useRouter } from "next/router";
-import { route } from "next/dist/server/router";
 
 export default function Pages() {
     const { currentUser } = useContext(SignInContext)
