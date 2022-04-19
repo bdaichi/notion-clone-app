@@ -1,7 +1,6 @@
-import { Button } from "@material-ui/core"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
-import { fetchOriginallyPages, fetchUserPages } from "../../service/page_service"
+import { fetchUserPages } from "../../service/page_service"
 import Page from "../../entity/Page"
 import PageListTile from "./page_list_tile"
 
@@ -16,12 +15,6 @@ export default function UserPageList(props: Props) {
         fetchUserPages(setPagesData)
     }
 
-    const openPageContents = (pageId: string) => {
-        if(pageId){
-            props.setPageId(pageId)
-        }
-    }
-
     useEffect(() => {
         if(pagesData[0] == null){
             fetchPagesData();
@@ -31,9 +24,7 @@ export default function UserPageList(props: Props) {
     return(
         <>{pagesData.map((pageData) => 
             <div key={pageData.pageId}>
-                <Button onClick={() => openPageContents(pageData.pageId)} size='medium'>
-                    <PageListTile page={pageData}/>
-                </Button>
+                    <PageListTile page={pageData} setPageId={props.setPageId} />
             </div>
         )}</>
     )
