@@ -55,13 +55,18 @@ export default function PageContent(props: Props) {
     }
 
     const updateContentText = async () => {
-        if(content) {
+        if(isAddDataEnterKey) {
+            if(content) {
 
-            const updateContentData = content.copyWith(null, null, text, null, null)
+                const updateContentData = content.copyWith(contentId, currentPageId, text, null, null)
 
-            await updateContent(updateContentData, contentId)
-            await fetchContentsData()
-            setIsTextField(false)
+                await updateContent(updateContentData, contentId)
+                await fetchContentsData()
+                setIsTextField(false)
+                setIsAddDataEnterkey(false)
+            }
+        } else {
+            setIsAddDataEnterkey(true)
         }
     }    
 
@@ -85,7 +90,7 @@ export default function PageContent(props: Props) {
     return(
         <div>
             {!(props.pageId == '') ?
-            <div className="py-56 px-32">
+            <div className="py-56">
             <div className='flex flex-row'>
                 {!(contents[0] == null) ?
                 <div className='flex flex-col z-20'>{contents.map((content) =>
@@ -104,10 +109,10 @@ export default function PageContent(props: Props) {
                             />
                         </div>
                         :
-                        <div className='flex justify-start z-20'>
+                        <div className='z-20 m-4'>
                             {
                             content.contentType == 'text' &&
-                            <TextContent onClickMethod={chageTextField} content={content}/>
+                                <TextContent onClickMethod={chageTextField} content={content}/>
                             }
                             {(content.contentType == 'checkBox') &&
                                 <CheckBoxContent content={content} onClickMethod={chageTextField}/>
@@ -120,23 +125,25 @@ export default function PageContent(props: Props) {
                 )}
                 </div>
                  :
-                <p className='my-64'>なにか書いてみよう</p>
-            }</div>
-            <div className='z-40'>
-                <TextField 
-                    variant='standard'
-                    inputProps={{style: {fontSize: '200%', margin: 8}}}
-                    onKeyDown={e => {
-                        if(e.key === 'Enter') {
-                            pushEnterKey()
-                        }
-                    }}
-                    onChange={(e) => setText(e.target.value)}
-                />
-            </div>
+                <p className='my-64 px-32'>なにか書いてみよう</p>
+                }</div>
+                <div className='flex justify-center'>
+                    <TextField 
+                        variant='standard'
+                        inputProps={{style: {fontSize: '200%', margin: 8}}}
+                        onKeyDown={e => {
+                            if(e.key === 'Enter') {
+                                pushEnterKey()
+                            }
+                        }}
+                        onChange={(e) => setText(e.target.value)}
+                    />
+                </div>
             </div>
             :
-            <p className='my-64'>ページを選ぼう</p>
+            <div className='flex mx-48 my-64'>
+                <p className='text-base'>ページを選ぼう</p>
+            </div>
         }
     </div>
     )
