@@ -16,16 +16,6 @@ class User {
         // this.createdAt = createdAt;
     }
 
-    public static fromJSON = (json: any) => {
-        const { userId, signInPassword,  } = Object.assign({}, json);
-
-        return new User(
-            userId,
-            signInPassword,
-            // createdAt,
-        );
-    };
-
     public static createUser (
         userId: string,
         signInPassword: string
@@ -35,6 +25,17 @@ class User {
             signInPassword
         )
     }
+
+
+    public static fromJSON = (json: any) => {
+        const { userId, signInPassword,  } = Object.assign({}, json);
+
+        return new User(
+            userId,
+            signInPassword,
+            // createdAt,
+        );
+    };
 
     public static initUser = () => {
         return new User(

@@ -16,17 +16,6 @@ class Page {
         this.userId = userId;
     }
 
-    public static fromJSON = (json: any) => {
-        console.log('josn', json)
-        const { pageId, pageName, userId } = Object.assign({}, json);
-
-        return new Page(
-           pageId,
-           pageName,
-           userId
-        );
-    }
-
     public static createPage(
         pageName: string,
         userId: string
@@ -38,6 +27,16 @@ class Page {
         )
     }
 
+    public static fromJSON = (json: any) => {
+        console.log('josn', json)
+        const { pageId, pageName, userId } = Object.assign({}, json);
+
+        return new Page(
+           pageId,
+           pageName,
+           userId
+        );
+    }
 }
 
 export default Page
