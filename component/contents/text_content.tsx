@@ -14,7 +14,7 @@ export default function TextContent(props: Props) {
             style={{ margin: 8 }}
             onClick={() => props.onClickMethod(props.content.contentId)}
         >
-            <p className='text-3xl w-96 truncate'>{props.content.text}</p>
+            <p className='text-2xl w-72'>{props.content.text}</p>
         </Button>
         </>
     )

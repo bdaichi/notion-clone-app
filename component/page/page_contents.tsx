@@ -16,10 +16,10 @@ export default function PageContent(props: Props) {
     const [contentId, setContentId] = useState('')
     //↓↓↓　pageを変更したさいにprops.pageIdも変更するのでデータ更新用のpageIdを保存しておいて更新処理がおわったらprops.pageIdをせっとする
     const [currentPageId, setCurrentPageId] = useState('')
-    const [text, setText] = useState('')
     const [isTextField, setIsTextField] = useState(false)
     //↓↓↓　文字変換を確定した後の2回目のEnterKeyを拾うため
     const [isAddDataEnterKey, setIsAddDataEnterkey] = useState(false)
+    const [text, setText] = useState('')
  
     const addContent = async () => {
         //if(text == '')ならそのcontentは削除するようにする
@@ -68,7 +68,7 @@ export default function PageContent(props: Props) {
         } else {
             setIsAddDataEnterkey(true)
         }
-    }    
+    }  
 
     useEffect(() => {
         if(props.pageId){
@@ -95,10 +95,10 @@ export default function PageContent(props: Props) {
                 {!(contents[0] == null) ?
                 <div className='flex flex-col z-10'>{contents.map((content) =>
                     <div key={content.contentId}>{(isTextField && content.contentId == contentId) ?
-                        <div className='my-2 z-10'>
+                        <div className='my-2 mx-8 z-10'>
                             <TextField
                                 variant='standard'
-                                inputProps={{style: {fontSize: '200%', margin: 8,  }}}
+                                inputProps={{style: {fontSize: '160%' }}}
                                 defaultValue={content.text}
                                 onKeyDown={e => {
                                     if(e.key === 'Enter') {

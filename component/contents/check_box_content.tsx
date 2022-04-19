@@ -33,28 +33,26 @@ export default function CheckBoxContent(props: Props) {
 
     return(
         <>{!isCheck ? 
-            <div className='flex flex-row'>
+            <div className='flex flex-row w-96'>
                 <IconButton onClick={toCheck}>
                     <CheckBoxOutlineBlankOutlinedIcon/>
                 </IconButton>
                 <Button 
-                    style={{ margin: 8 }}
                     onClick={() => props.onClickMethod(props.content.contentId)}
                 >
-                    <p className='text-3xl w-96 truncate'>{props.content.text}</p>
+                    <p className='text-2xl'>{props.content.text}</p>
                 </Button>  
             </div>
             :
-            <div className='flex flex-row'>
-            <IconButton onClick={unCheck}>
-                <CheckBoxOutlinedIcon/>
-            </IconButton>
-            <Button 
-                    style={{ margin: 8 }}
+            <div className='flex flex-row w-96'>
+                <IconButton onClick={unCheck}>
+                    <CheckBoxOutlinedIcon/>
+                </IconButton>
+                <Button 
                     onClick={() => props.onClickMethod(props.content.contentId)}
                 >
-                    <p className='text-3xl w-96 truncate' style={{ color: 'gray', textDecorationLine: 'line-through' }}>{props.content.text}</p>
-            </Button>  
+                        <p className='text-xl' style={{ color: 'gray', textDecorationLine: 'line-through' }}>{props.content.text}</p>
+                </Button>  
         </div>
         }</>
     )
