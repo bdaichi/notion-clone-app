@@ -93,9 +93,9 @@ export default function PageContent(props: Props) {
             <div className="py-56">
             <div className='flex flex-row'>
                 {!(contents[0] == null) ?
-                <div className='flex flex-col z-20'>{contents.map((content) =>
+                <div className='flex flex-col z-10'>{contents.map((content) =>
                     <div key={content.contentId}>{(isTextField && content.contentId == contentId) ?
-                        <div className='my-2 z-20'>
+                        <div className='my-2 z-10'>
                             <TextField
                                 variant='standard'
                                 inputProps={{style: {fontSize: '200%', margin: 8,  }}}
@@ -109,7 +109,7 @@ export default function PageContent(props: Props) {
                             />
                         </div>
                         :
-                        <div className='z-20 m-4'>
+                        <div className='z-10 m-4'>
                             {
                             content.contentType == 'text' &&
                                 <TextContent onClickMethod={chageTextField} content={content}/>
