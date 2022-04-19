@@ -29,12 +29,12 @@ export default function OriginallyPageList(props: Props) {
     },[pagesData])
     
     return(
-        <>{pagesData.map((pageData) => 
+        <div className='border-b-2 border-gray-300 my-4'>{pagesData.map((pageData) => 
             <div key={pageData.pageId}>
                 <Button onClick={() => openPageContents(pageData.pageId)} size='large'>
                     <PageListTile page={pageData}/>
                 </Button>
             </div>
-        )}</>
+        )}</div>
     )
 }
