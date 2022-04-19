@@ -1,7 +1,6 @@
-import { Button } from "@material-ui/core"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
-import { fetchOriginallyPages, fetchUserPages } from "../../service/page_service"
+import { fetchUserPages } from "../../service/page_service"
 import Page from "../../entity/Page"
 import PageListTile from "./page_list_tile"
 
