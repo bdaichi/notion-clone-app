@@ -31,7 +31,7 @@ export default function PageListTile(props: Props) {
     return(
         <>
         <div className='flex flex-row'>
-           <p className="flex items-center text-2xl my-4 tracking-wide" style={{ color: '#006db3', fontFamily: '筑紫A丸ゴシック' }}>{props.page.pageName}</p>
+           <p className="flex items-center text-xl my-4 tracking-wide" style={{ color: '#006db3', fontFamily: '筑紫A丸ゴシック' }}>{props.page.pageName}</p>
            <IconButton onClick={openIsConfirmationField}>
                 <AddBoxOutlinedIcon />
            </IconButton>
