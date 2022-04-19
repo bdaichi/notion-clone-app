@@ -40,7 +40,7 @@ export default function CheckBoxContent(props: Props) {
                 <Button 
                     onClick={() => props.onClickMethod(props.content.contentId)}
                 >
-                    <p className='text-2xl'>{props.content.text}</p>
+                    <p className='text-2xl' style={{ color: props.content.text ? 'black' : 'gray' }}>{props.content.text ? props.content.text : 'なにか書いてみよう'}</p>
                 </Button>  
             </div>
             :
