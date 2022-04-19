@@ -1,54 +1,20 @@
+
 import type { NextPage } from 'next'
-import { Button, TextField } from '@material-ui/core';
-import { useEffect, useState } from 'react';
-import fetchUser from '../service/user_service';
-import axios from 'axios';
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 const Home: NextPage = () => {
-  const baseURL = 'http://localhost:3001/post_api';
-  const axiosConfig = {
-    headers: {
-      "Content-Type": "application/json;",
-      "Access-Control-Allow-Origin": "*",
-  },
-  }
-
-  const [data, setData] = useState('')
-
-  const postData = async () => {
-   
-    await axios.post('http://localhost:3001/post_api', {
-      patams: {
-        text: 'あああ',
-      },
-    })
-    .then((results) => {
-      console.log('results', results.data.msg);
-  })
-    .catch((err) => {
-      console.log("エラーの内容です。");
-      const errorId = err.config.data.id
-      console.log(err);
-      console.log(errorId)
-    });
-  }
+  const router = useRouter()
 
   useEffect(() => {
-    // fetchUser(setData)
-    
-  }, [])
-  
+    router.push('/sign_in')
+  },[])
+   
+
   return (
     <>
-      <div>
-        <Button
-          onClick={postData}
-        >
-          押す
-        </Button>
-        </div>
     </>
-  );
+  )
 }
 
 export default Home
