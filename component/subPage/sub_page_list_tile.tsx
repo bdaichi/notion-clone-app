@@ -18,7 +18,7 @@ export default function SubPageListTile(props: Props) {
   const [subPages, setSubPages] = useState<SubPage[]>([]);
 
   const fetchSubPageData = async () => {
-    await fecthSubPages(setSubPages, props.subPage.hostPageId);
+    await fecthSubPages(setSubPages, props.subPage.pageId);
   };
 
   const openConfirmationField = () => {
@@ -26,8 +26,10 @@ export default function SubPageListTile(props: Props) {
   };
 
   useEffect(() => {
-    fetchSubPageData();
-  }, []);
+    if (!isConfirmation) {
+      fetchSubPageData();
+    }
+  }, [isConfirmation]);
 
   const fetchContentData = () => {
     props.setPageId(props.subPage.pageId);

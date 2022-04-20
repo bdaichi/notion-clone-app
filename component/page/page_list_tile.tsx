@@ -20,7 +20,7 @@ export default function PageListTile(props: Props) {
   const [isOpenSubPageList, setIsOpenSubPageList] = useState(false);
   const [subPages, setSubPages] = useState<SubPage[]>([]);
 
-  const fetchContentData = () => {
+  const fetchContentsData = () => {
     props.setPageId(props.page.pageId);
   };
 
@@ -52,7 +52,7 @@ export default function PageListTile(props: Props) {
                 />
               )}
           </>
-          <Button onClick={fetchContentData}>
+          <Button onClick={fetchContentsData}>
             <p
               className="flex items-center text-xl my-4 tracking-wide w-40 truncate"
               style={{ color: "#006db3", fontFamily: "筑紫A丸ゴシック" }}

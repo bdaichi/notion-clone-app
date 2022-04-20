@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
 import { fetchUserPages } from "../../service/page_service";
 import Page from "../../entity/Page";
@@ -27,11 +28,7 @@ export default function UserPageList(props: Props) {
     <>
       {pagesData.map((pageData) => (
         <div key={pageData.pageId}>
-          {pagesData[1] == null ? (
-            <PageListTile page={pagesData[0]} setPageId={props.setPageId} />
-          ) : (
-            <PageListTile page={pageData} setPageId={props.setPageId} />
-          )}
+          <PageListTile page={pageData} setPageId={props.setPageId} />
         </div>
       ))}
     </>
