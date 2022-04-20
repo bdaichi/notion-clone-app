@@ -2,9 +2,18 @@ import { Dispatch, SetStateAction } from "react";
 import axios from 'axios';
 import Page from "../entity/Page";
 
+const baseURL = 'http://localhost:3001';
+
 export async function createPage(page: Page) {
     //pageのデータをサーバーにPOSTする
-    console.log('createPage page', page)
+    console.log('createPage page', page.toJson())
+    try{
+        await axios.post(`${baseURL}/create_page`, {
+            page: page.toJson(),
+        })
+    } catch (e) {
+        console.log('createPage error', e)
+    }
 }
 
 export async function fetchOriginallyPages(setPages: Dispatch<SetStateAction<Page[]>>) {
