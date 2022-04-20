@@ -37,6 +37,14 @@ class SubPage {
             pageName,
         );
     }
+
+    toJson() {
+        return{
+           'hostPageId': this.hostPageId,
+           'pageId': this.pageId,
+           'pageName': this.pageName
+        }
+    }
 }
 
 export default SubPage

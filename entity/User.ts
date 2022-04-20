@@ -44,6 +44,12 @@ class User {
         );
     }
 
+    toJson() {
+        return{
+            'userId': this.userId,
+            'signInPassword': this.signInPassword
+        }
+    }
 
 }
 
