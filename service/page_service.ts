@@ -69,3 +69,17 @@ export async function fetchUserPages(
       console.log(error.status);
     });
 }
+
+export async function deletePage(pageId: string) {
+  await axios
+    .post(`${baseURL}/delete_page`, {
+      pageId: pageId,
+    })
+    .then((results) => {
+      console.log(results);
+    })
+    .catch((error) => {
+      console.log("delete_pageのやろうが通信失敗");
+      console.log(error.status);
+    });
+}

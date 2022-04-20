@@ -23,7 +23,7 @@ export default function OriginallyPageList(props: Props) {
   }, []);
 
   return (
-    <div className="border-b-2 border-gray-300 my-4">
+    <div className="my-4">
       {pagesData.map((pageData) => (
         <div key={pageData.pageId}>
           <PageListTile page={pageData} setPageId={props.setPageId} />

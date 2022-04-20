@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import SubPage from "../../entity/SubPage";
-import SubPageListTile from "./sub_page_list_tile";
+import PageListTile from "../page/page_list_tile";
 
 type Props = {
   subPages: SubPage[];
@@ -13,7 +13,7 @@ export default function SubPageList(props: Props) {
       <div>
         {props.subPages.map((subPage) => (
           <div key={subPage.pageId} className="flex flex-col">
-            <SubPageListTile subPage={subPage} setPageId={props.setPageId} />
+            <PageListTile page={subPage} setPageId={props.setPageId} />
           </div>
         ))}
       </div>

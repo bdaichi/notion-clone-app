@@ -34,3 +34,17 @@ export async function fecthSubPages(
       console.log(error.status);
     });
 }
+
+export async function deleteSubPage(pageId: string) {
+  await axios
+    .post(`${baseURL}/delete_subPage`, {
+      pageId: pageId,
+    })
+    .then((results) => {
+      console.log(results);
+    })
+    .catch((error) => {
+      console.log("delete_subPageのやろうが通信失敗");
+      console.log(error.status);
+    });
+}

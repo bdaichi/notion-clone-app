@@ -62,7 +62,6 @@ export default function Pages() {
               )}
             </div>
           </div>
-          /* sm(スマホ用のドロワー表示 isOpenで表示と非表示を切り替える) */
           <div className="fixed top-5 left-5 md:hidden z-20">
             {!isOpenPageList ? (
               <IconButton onClick={openPageList}>
