@@ -1,31 +1,35 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-import { fetchUserPages } from "../../service/page_service"
-import Page from "../../entity/Page"
-import PageListTile from "./page_list_tile"
+import { fetchUserPages } from "../../service/page_service";
+import Page from "../../entity/Page";
+import PageListTile from "./page_list_tile";
 
 type Props = {
-    setPageId: Dispatch<SetStateAction<string>>
-}
+  setPageId: Dispatch<SetStateAction<string>>;
+  userId: string;
+  isDataReload: boolean;
+  setIsDataReload: Dispatch<SetStateAction<boolean>>;
+};
 
 export default function UserPageList(props: Props) {
-    const [pagesData, setPagesData] = useState<Page[]>([])
+  const [pagesData, setPagesData] = useState<Page[]>([]);
 
-    const fetchPagesData = () => {
-        fetchUserPages(setPagesData)
-    }
+  const fetchPagesData = () => {
+    fetchUserPages(setPagesData, props.userId);
+  };
 
-    useEffect(() => {
-        if(pagesData[0] == null){
-            fetchPagesData();
-        }
-    },[pagesData])
-    
-    return(
-        <>{pagesData.map((pageData) => 
-            <div key={pageData.pageId}>
-                    <PageListTile page={pageData} setPageId={props.setPageId} />
-            </div>
-        )}</>
-    )
+  useEffect(() => {
+    fetchPagesData();
+    props.setIsDataReload(false);
+  }, [props.isDataReload]);
+
+  return (
+    <>
+      {pagesData.map((pageData) => (
+        <div key={pageData.pageId}>
+          <PageListTile page={pageData} setPageId={props.setPageId} />
+        </div>
+      ))}
+    </>
+  );
 }

@@ -66,6 +66,16 @@ class Content {
         );
     }
 
+    toJson() {
+        return{
+            'contentId': this.contentId,
+            'hostPageId': this.hostPageId,
+            'text': this.text,
+            'contentType': this.contentType,
+            'isCheck': this.isCheck
+        }
+    }
+
 }
 
 export default Content

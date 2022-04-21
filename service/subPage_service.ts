@@ -2,23 +2,49 @@ import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 
 import SubPage from "../entity/SubPage";
+import { baseURL } from "./page_service";
 
 export async function createSubPage(subPage: SubPage) {
-    //postでsubPageのデータを渡す
-    console.log('createSubPage', subPage)
+  console.log("createsubPage page", subPage.toJson());
+  try {
+    await axios.post(`${baseURL}/create_subPage`, {
+      subPage: subPage.toJson(),
+    });
+  } catch (e) {
+    console.log("createsubPage error", e);
+  }
 }
 
-export async function fecthSubPages(setSubPages: Dispatch<SetStateAction<SubPage[]>>, hostPageId: string) {
-    //postでhostPageIdを渡す
-    await axios
-    .get('http://localhost:3001/read_subPages')
+export async function fecthSubPages(
+  setSubPages: Dispatch<SetStateAction<SubPage[]>>,
+  hostPageId: string
+) {
+  console.log("hostPageId", hostPageId);
+  await axios
+    .post(`${baseURL}/read_subPages`, {
+      pageId: hostPageId,
+    })
     .then((results) => {
-        console.log(results.data.subPages);
-        console.log('originallyPagesMap',results.data.subPages.map((doc: any) => SubPage.fromJSON(doc.data)))
-        setSubPages(results.data.subPages.map((doc: any) => SubPage.fromJSON(doc)))
+      setSubPages(
+        results.data.subPages.map((doc: any) => SubPage.fromJSON(doc))
+      );
     })
     .catch((error) => {
-        console.log('read_subPagesのやろうが通信失敗');
-        console.log(error.status);
+      console.log("read_subPagesのやろうが通信失敗");
+      console.log(error.status);
+    });
+}
+
+export async function deleteSubPage(pageId: string) {
+  await axios
+    .post(`${baseURL}/delete_subPage`, {
+      pageId: pageId,
+    })
+    .then((results) => {
+      console.log(results);
+    })
+    .catch((error) => {
+      console.log("delete_subPageのやろうが通信失敗");
+      console.log(error.status);
     });
 }

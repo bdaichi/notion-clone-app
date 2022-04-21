@@ -37,6 +37,14 @@ class Page {
            userId
         );
     }
+
+    toJson() {
+        return{
+            'pageId': this.pageId,
+            'pageName': this.pageName,
+            'userId': this.userId
+        }
+    }
 }
 
 export default Page
