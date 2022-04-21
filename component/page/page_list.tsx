@@ -38,9 +38,10 @@ export default function PageList(props: Props) {
       <div className="flex my-12 mx-12 flex-col">
         <OriginallyPageList setPageId={props.setPageId} userId={props.userId} />
         <div
-          className="flex flex-row border-t-2 border-gray-400"
-          style={{ width: "80%" }}
-        >
+          className="border-t-2 border-gray-400"
+          style={{ width: "90%" }}
+        ></div>
+        <div className="flex flex-row">
           <IconButton onClick={openAddPageField}>
             <AddIcon />
           </IconButton>

@@ -5,6 +5,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { fetchUser } from "../service/user_service";
 import User from "../entity/User";
+import { fetchOriginallyPages } from "../service/page_service";
 
 type SignInContextProps = {
   currentUser: User | null;

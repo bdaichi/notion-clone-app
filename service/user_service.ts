@@ -5,14 +5,15 @@ import { baseURL, createOriginallyPage } from "./page_service";
 
 export async function createUser(user: User) {
   //postでuserのjsonを渡す
+  console.log(user.toJson());
   try {
     await axios.post(`${baseURL}/create_user`, {
       user: user.toJson(),
     });
+    await createOriginallyPage(user.userId);
   } catch (e) {
     console.log("createuser error", e);
   }
-  createOriginallyPage(user.userId);
 }
 
 export async function fetchUser(
@@ -26,7 +27,7 @@ export async function fetchUser(
       signInPassword: signInPassword,
     })
     .then((results) => {
-      console.log(results.data.user);
+      console.log(results.data.user[0]);
       setCurrentUser(User.fromJSON(results.data.user[0]));
     })
     .catch((error) => {

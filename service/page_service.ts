@@ -18,6 +18,7 @@ export async function createPage(page: Page) {
 
 export async function createOriginallyPage(userId: string) {
   try {
+    console.log(userId);
     await axios.post(`${baseURL}/create_originally_page`, {
       userId: userId,
     });
